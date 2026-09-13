@@ -1,22 +1,21 @@
-use desktop::properties::{
-    APPLICATION_KEY, ApplicationProperties, BASE_NAME, LOGGING_KEY, LoggingProperties, ROOT_LOGGER,
-};
+use desktop::constant::{keys, locations, loggers};
+use desktop::properties::{ApplicationProperties, LoggingProperties};
 use entropybox_starter_simulation::entropybox::config::{dir, load_from};
 use std::path::Path;
 
 const PROFILES: [&str; 3] = ["dev", "release", "test"];
 
 fn application(profile: &str) -> ApplicationProperties {
-    load_from(&dir(), BASE_NAME, profile)
+    load_from(&dir(), locations::CONFIG_BASE_NAME, profile)
         .expect("properties load")
-        .get(APPLICATION_KEY)
+        .get(keys::APPLICATION)
         .expect("application section")
 }
 
 fn logging(profile: &str) -> LoggingProperties {
-    load_from(&dir(), BASE_NAME, profile)
+    load_from(&dir(), locations::CONFIG_BASE_NAME, profile)
         .expect("properties load")
-        .get(LOGGING_KEY)
+        .get(keys::LOGGING)
         .expect("logging section")
 }
 
@@ -28,7 +27,7 @@ fn dir_points_inside_desktop() {
 #[test]
 fn base_layer_supplies_every_field() {
     assert_eq!(application("none").name, "entropybox");
-    assert_eq!(logging("none").level[ROOT_LOGGER], "info");
+    assert_eq!(logging("none").level[loggers::ROOT], "info");
 }
 
 #[test]
@@ -40,21 +39,36 @@ fn the_application_name_does_not_move_between_profiles() {
 
 #[test]
 fn a_profile_layer_only_moves_the_log_levels() {
-    assert_eq!(logging("dev").level[ROOT_LOGGER], "debug");
-    assert_eq!(logging("release").level[ROOT_LOGGER], "warn");
-    assert_eq!(logging("test").level[ROOT_LOGGER], "error");
+    assert_eq!(logging("dev").level[loggers::ROOT], "debug");
+    assert_eq!(logging("release").level[loggers::ROOT], "warn");
+    assert_eq!(logging("test").level[loggers::ROOT], "error");
 }
 
 #[test]
 fn every_profile_layer_parses() {
-    assert!(dir().join(format!("{BASE_NAME}.toml")).exists());
+    assert!(
+        dir()
+            .join(format!("{}.toml", locations::CONFIG_BASE_NAME))
+            .exists()
+    );
     for profile in PROFILES {
-        assert!(dir().join(format!("{BASE_NAME}-{profile}.toml")).exists());
-        assert!(load_from(&dir(), BASE_NAME, profile).is_ok());
+        assert!(
+            dir()
+                .join(format!("{}-{profile}.toml", locations::CONFIG_BASE_NAME))
+                .exists()
+        );
+        assert!(load_from(&dir(), locations::CONFIG_BASE_NAME, profile).is_ok());
     }
 }
 
 #[test]
 fn missing_base_layer_is_an_error() {
-    assert!(load_from(Path::new("/nonexistent"), BASE_NAME, "dev").is_err());
+    assert!(
+        load_from(
+            Path::new("/nonexistent"),
+            locations::CONFIG_BASE_NAME,
+            "dev"
+        )
+        .is_err()
+    );
 }
