@@ -1,7 +1,7 @@
 //! Logging properties translated into what LogPlugin takes.
 
-use crate::constant::loggers;
-use crate::properties::LoggingProperties;
+use crate::domain::constant::loggers;
+use crate::infra::config::properties::LoggingProperties;
 use bevy::log::{Level, LogPlugin};
 use bevy::prelude::default;
 

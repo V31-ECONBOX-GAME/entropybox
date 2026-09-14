@@ -1,11 +1,12 @@
-pub mod constant;
-pub mod properties;
-pub mod util;
+pub mod application;
+pub mod domain;
+pub mod infra;
+pub mod presentation;
 
-use constant::keys;
+use domain::constant::keys;
 use entropybox_starter_simulation::prelude::*;
-use properties::{ApplicationProperties, LoggingProperties};
-use util::{logs, windows};
+use infra::config::properties::{self, ApplicationProperties, LoggingProperties};
+use infra::config::{logs, windows};
 
 pub fn app() -> App {
     app_with(&properties::load().expect("load properties"))

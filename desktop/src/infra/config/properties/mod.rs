@@ -4,7 +4,7 @@ pub mod logging;
 pub use application::ApplicationProperties;
 pub use logging::LoggingProperties;
 
-use crate::constant::locations;
+use crate::domain::constant::locations;
 use entropybox_starter_simulation::entropybox::config::{Config, ConfigError};
 
 pub fn load() -> Result<Config, ConfigError> {

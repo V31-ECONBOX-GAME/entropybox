@@ -1,5 +1,5 @@
-use desktop::constant::{keys, locations, loggers};
-use desktop::properties::{ApplicationProperties, LoggingProperties};
+use desktop::domain::constant::{keys, locations, loggers};
+use desktop::infra::config::properties::{ApplicationProperties, LoggingProperties};
 use entropybox_starter_simulation::entropybox::config::{dir, load_from};
 use std::path::Path;
 
