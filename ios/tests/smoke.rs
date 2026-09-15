@@ -1,4 +1,4 @@
 #[test]
 fn start_is_callable() {
-    ios::entropybox_start();
+    ios::econbox_start();
 }

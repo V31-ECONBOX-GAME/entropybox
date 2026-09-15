@@ -56,37 +56,34 @@ fn dist() -> Result<()> {
         "desktop",
     ])?;
 
-    let binary = root.join("target/release/entropybox");
+    let binary = root.join("target/release/econbox");
     reject_dynamic_linking(&binary)?;
 
     if dist.exists() {
         fs::remove_dir_all(&dist).map_err(|error| format!("clean dist: {error}"))?;
     }
 
-    let contents = dist.join("entropybox.app/Contents");
+    let contents = dist.join("econbox.app/Contents");
     let macos = contents.join("MacOS");
     create_dir(&macos)?;
     create_dir(&contents.join("Resources"))?;
-    copy_file(&binary, &macos.join("entropybox"))?;
+    copy_file(&binary, &macos.join("econbox"))?;
     copy_dir(&resources, &macos.join("resources"))?;
     copy_dir(&assets, &macos.join("assets"))?;
     fs::write(contents.join("Info.plist"), info_plist(&version))
         .map_err(|error| format!("write Info.plist: {error}"))?;
 
-    let plain = dist.join(format!("entropybox-{version}"));
+    let plain = dist.join(format!("econbox-{version}"));
     create_dir(&plain)?;
-    copy_file(&binary, &plain.join("entropybox"))?;
+    copy_file(&binary, &plain.join("econbox"))?;
     copy_dir(&resources, &plain.join("resources"))?;
     copy_dir(&assets, &plain.join("assets"))?;
 
     archive(
-        &dist.join("entropybox.app"),
-        &dist.join(format!("entropybox-{version}-macos-app.zip")),
+        &dist.join("econbox.app"),
+        &dist.join(format!("econbox-{version}-macos-app.zip")),
     )?;
-    archive(
-        &plain,
-        &dist.join(format!("entropybox-{version}-macos.zip")),
-    )?;
+    archive(&plain, &dist.join(format!("econbox-{version}-macos.zip")))?;
 
     println!("packaged {} into {}", version, dist.display());
     Ok(())
@@ -114,10 +111,10 @@ fn info_plist(version: &str) -> String {
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>entropybox</string>
-  <key>CFBundleDisplayName</key><string>entropybox</string>
-  <key>CFBundleIdentifier</key><string>com.wangxiang.entropybox</string>
-  <key>CFBundleExecutable</key><string>entropybox</string>
+  <key>CFBundleName</key><string>econbox</string>
+  <key>CFBundleDisplayName</key><string>econbox</string>
+  <key>CFBundleIdentifier</key><string>com.wangxiang.econbox</string>
+  <key>CFBundleExecutable</key><string>econbox</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>{version}</string>
   <key>CFBundleVersion</key><string>{version}</string>
@@ -159,7 +156,7 @@ fn cargo_with_profile(args: &[&str], profile: &str) -> Result<()> {
     let program = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(program)
         .current_dir(project_root())
-        .env("ENTROPYBOX_PROFILE", profile)
+        .env("ECONBOX_PROFILE", profile)
         .args(args)
         .status()
         .map_err(|error| format!("run cargo: {error}"))?;

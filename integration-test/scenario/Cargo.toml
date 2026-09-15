@@ -7,7 +7,14 @@ publish.workspace = true
 [dev-dependencies]
 bevy = { workspace = true }
 desktop = { workspace = true }
-entropybox-world = { workspace = true }
+econbox-brush = { workspace = true }
+econbox-camera = { workspace = true }
+econbox-cursor = { workspace = true }
+econbox-clock = { workspace = true }
+econbox-creature = { workspace = true }
+econbox-tile = { workspace = true }
+econbox-tilemap = { workspace = true }
+econbox-worldgen = { workspace = true }
 
 [lints]
 workspace = true

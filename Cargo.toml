@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["core/*", "module/*", "starter/*", "desktop", "ios", "integration-test/*", "buildsrc"]
+members = ["core/*", "module/*", "desktop", "ios", "integration-test/*", "buildsrc"]
 default-members = ["desktop"]
 
 [workspace.package]
@@ -11,16 +11,21 @@ publish = false
 [workspace.dependencies]
 bevy = { version = "0.19.1", default-features = false }
 serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", default-features = false, features = ["std"] }
 config_rs = { package = "config", version = "0.15", default-features = false, features = ["toml"] }
-entropybox = { path = "core/entropybox" }
-entropybox-world = { path = "module/entropybox-world" }
-entropybox-population = { path = "module/entropybox-population" }
-entropybox-society = { path = "module/entropybox-society" }
-entropybox-economy = { path = "module/entropybox-economy" }
-entropybox-finance = { path = "module/entropybox-finance" }
-entropybox-politics = { path = "module/entropybox-politics" }
-entropybox-starter = { path = "starter/entropybox-starter" }
-entropybox-starter-simulation = { path = "starter/entropybox-starter-simulation" }
+econbox = { path = "core/econbox" }
+econbox-art = { path = "module/econbox-art" }
+econbox-brush = { path = "module/econbox-brush" }
+econbox-camera = { path = "module/econbox-camera" }
+econbox-clock = { path = "module/econbox-clock" }
+econbox-creature = { path = "module/econbox-creature" }
+econbox-cursor = { path = "module/econbox-cursor" }
+econbox-field = { path = "module/econbox-field" }
+econbox-noise = { path = "module/econbox-noise" }
+econbox-tile = { path = "module/econbox-tile" }
+econbox-tilemap = { path = "module/econbox-tilemap" }
+econbox-tileview = { path = "module/econbox-tileview" }
+econbox-worldgen = { path = "module/econbox-worldgen" }
 desktop = { path = "desktop" }
 
 [workspace.lints.clippy]

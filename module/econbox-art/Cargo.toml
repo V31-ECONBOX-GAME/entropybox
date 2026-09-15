@@ -1,0 +1,8 @@
+[package]
+name = "econbox-art"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

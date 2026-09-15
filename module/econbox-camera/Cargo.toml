@@ -1,0 +1,11 @@
+[package]
+name = "econbox-camera"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+bevy = { workspace = true, features = ["2d"] }
+
+[lints]
+workspace = true

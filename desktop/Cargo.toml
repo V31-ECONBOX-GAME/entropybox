@@ -5,13 +5,22 @@ edition.workspace = true
 publish.workspace = true
 
 [[bin]]
-name = "entropybox"
+name = "econbox"
 path = "src/main.rs"
 
 [dependencies]
-bevy = { workspace = true }
+bevy = { workspace = true, features = ["2d", "ui"] }
 serde = { workspace = true }
-entropybox-starter-simulation = { workspace = true }
+econbox = { workspace = true }
+econbox-art = { workspace = true }
+econbox-brush = { workspace = true }
+econbox-camera = { workspace = true }
+econbox-clock = { workspace = true }
+econbox-creature = { workspace = true }
+econbox-cursor = { workspace = true }
+econbox-tile = { workspace = true }
+econbox-tilemap = { workspace = true }
+econbox-tileview = { workspace = true }
 
 [features]
 default = ["dev"]
